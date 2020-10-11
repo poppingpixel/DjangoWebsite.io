@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Store</title>
+    <meta id="meta" name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+    <style type="text/css">
+        body {
+            background-color: #f0f0f0;
+        }
+        
+        img {
+            max-width: 150px;
+            max-height: 200px;
+            box-shadow: 0 2px 5px 1px rgba(0, 0, 0, .2);
+            align: center;
+            justify-content: center;
+        }
+        
+        p {
+            font-size: 15px;
+        }
+        
+        .card-body {
+            width: 500px;
+            height: 500px;
+            margin: 1px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark ml-auto">
+        <a class="navbar-brand mr-auto" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		  <span class="navbar-toggler-icon"></span>
+		</button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+
+
+
+        </div>
+
+        {% if user.is_authenticated %}
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" style=color:white; id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				welcome {{request.user}}
+			  </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="/logout">Logout</a> {% else %}
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary mx-3" data-toggle="modal" data-target="#signupModel">
+		Signup
+	  </button>
+
+                <!-- Button trigger modal -->
+                <button type="submit" class="btn btn-primary mx-3" data-toggle="modal" data-target="#loginModel">
+		Login
+	  </button></li>
+        </ul>
+        </div>
+    </nav>
+    {% endif %}
+    </div>
+    </div>
+
+    </nav>
+
+    <!-- Modal signup -->
+    <div class="modal fade" id="signupModel" tabindex="-1" aria-labelledby="signupModel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="signupModel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			  </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/signup" method="post">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Username</label>
+                            <input type="username" class="form-control" id="Username" name="Username" placeholder="username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Email address</label>
+                            <input type="email" class="form-control" id="Email" name="Email" placeholder="Email" required>
+                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Password</label>
+                            <input type="password" class="form-control" id="Pass1" name="Pass1" placeholder="chose the  password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Password</label>
+                            <input type="password" class="form-control" id="Pass2" name="Pass2" placeholder="Enter the password again" required>
+                        </div>
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- Modal login -->
+    <div class="modal fade" id="loginModel" tabindex="-1" aria-labelledby="loginModel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			  </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/login" method="post">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Username</label>
+                            <input type="username" class="form-control" id="LoginUsername" name="LoginUsername" placeholder="username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Password</label>
+                            <input type="password" class="form-control" id="LoginPass1" name="LoginPass1" placeholder="chose the  password">
+                        </div>
+
+                        {% csrf_token %} {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        <strong>Message: </strong> {{message}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		  <span aria-hidden="true">&times;</span>
+		</button>
+    </div>
+    {% endfor %}
+
+    <div class="container">
+        <div class="row">
+            {% for product in products %}
+
+            <div class="">
+                <br>
+                <div class="card card-body">
+                    <h4>{{product.name}}</h4>
+                    <img src={{product.image_url}}>
+                    <hr>
+                    <p>{{product.description}}</p>
+                    <hr>
+                    <h5>&{{product.price}}</h5>
+                    <hr>
+                    <a target="_blank" class="btn btn-sm btn-warning" href="{% url 'checkout' product.id  %}">Buy Now</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+</body>
+
+</html>

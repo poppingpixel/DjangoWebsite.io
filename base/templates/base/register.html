@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Register</title>
+</head>
+<body>
+
+<form action="register" method="POST">
+	{% csrf_token %}
+	<input type="text" name="first_name" placeholder="first_name"><br>
+	<input type="text" name="first_last" placeholder="first_last"><br>
+	<input type="text" name="Email" placeholder="Email"><br>
+	<input type="text" name="Password1" placeholder="Password"><br>
+
+	<input type="submit">
+</form>
+
+
+</body>
+</html>
